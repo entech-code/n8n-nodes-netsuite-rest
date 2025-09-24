@@ -1,5 +1,5 @@
 import { NetSuiteRestApiSchemaBuilder } from '../../../builders/NetSuiteRestApiSchemaBuilder';
-import { NodeOperationExecutor } from '../../../../nodes/NetSuiteRestTest/NodeOperationExecutor';
+import { NodeOperationExecutor } from '../../../../nodes/NetSuiteRest/NodeOperationExecutor';
 import type { OpenAPIV3 } from 'openapi-types';
 import { ApplicationError } from 'n8n-workflow';
 

@@ -1,5 +1,5 @@
 import { NetSuiteRestApiSchemaBuilder } from '../../../builders/NetSuiteRestApiSchemaBuilder';
-import { NodePropertyFactory } from '../../../../nodes/NetSuiteRestTest/NodePropertyFactory';
+import { NodePropertyFactory } from '../../../../nodes/NetSuiteRest/NodePropertyFactory';
 import type { OpenAPIV3 } from 'openapi-types';
 
 describe('NodePropertyFactory optional and required properties are handled correctly in operation params, requestBody and respons and nested objects', () => {

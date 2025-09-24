@@ -117,7 +117,7 @@ export class NetSuiteRestApi {
 		if (!this.context) {
 			throw new ApplicationError('Context is null. Cannot retrieve credentials.');
 		}
-		const credentials = await this.context.getCredentials('netSuiteRestTestApi');
+		const credentials = await this.context.getCredentials('netSuiteRestApi');
 
 		const url = credentials.restApiUrl + '/services/rest/record/v1' + httpRequestData.RequestUrl;
 		console.log('Making N8n request to URL:', url);
@@ -138,7 +138,7 @@ export class NetSuiteRestApi {
 
 		const response = await this.context.helpers.httpRequestWithAuthentication.call(
 			this.context,
-			'netSuiteRestTestApi', // Replace with your credential name
+			'netSuiteRestApi', // Replace with your credential name
 			requestOptions,
 		);
 

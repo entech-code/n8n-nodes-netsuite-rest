@@ -1,5 +1,5 @@
 import { NetSuiteRestApiSchemaBuilder } from '../../../builders/NetSuiteRestApiSchemaBuilder';
-import { NodePropertyFactory } from '../../../../nodes/NetSuiteRestTest/NodePropertyFactory';
+import { NodePropertyFactory } from '../../../../nodes/NetSuiteRest/NodePropertyFactory';
 import type { OpenAPIV3 } from 'openapi-types';
 
 describe('NodePropertyFactory creates customFields collection', () => {

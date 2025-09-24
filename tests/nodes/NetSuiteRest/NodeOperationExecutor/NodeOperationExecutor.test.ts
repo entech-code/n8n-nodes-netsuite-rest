@@ -1,4 +1,4 @@
-import { NodeOperationExecutor } from '../../../../nodes/NetSuiteRestTest/NodeOperationExecutor';
+import { NodeOperationExecutor } from '../../../../nodes/NetSuiteRest/NodeOperationExecutor';
 
 describe('NodeOperationExecutor  test static methods', () => {
 	test('flattenRequestBodyObject flattens intermediary ns objects', () => {
