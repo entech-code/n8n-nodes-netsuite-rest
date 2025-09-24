@@ -173,7 +173,6 @@ describe('NodePropertyFactory creates customFields collection', () => {
 				},
 			],
 			description: 'List of Custom Fields',
-			required: false,
 		});
 	});
 });
