@@ -1,0 +1,13 @@
+{
+	"node": "n8n-nodes-netsuite-rest.NetSuiteRest",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Business", "ERP"],
+	"resources": {
+		"primaryDocumentation": [
+			{
+				"url": "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/chapter_N3412777.html"
+			}
+		]
+	}
+}

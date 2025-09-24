@@ -1,0 +1,21 @@
+import { ICredentialType, INodeProperties } from 'n8n-workflow';
+
+export class NetSuiteRestApi implements ICredentialType {
+	name = 'netSuiteRestApi';
+	displayName = 'NetSuite REST API (OAuth2)';
+	extends = ['oAuth2Api'];
+	documentationUrl =
+		'https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157780312610.html';
+	properties: INodeProperties[] = [
+		{
+			displayName: 'REST API Url',
+			name: 'restApiUrl',
+			type: 'string',
+			required: true,
+			default: '',
+			placeholder: 'https://<account_id>.suitetalk.api.netsuite.com',
+			description:
+				'Usually found in Setup -> Company -> Company Information -> Company URLS -> SUITETALK (SOAP and REST WEB SERVICES).',
+		},
+	];
+}
