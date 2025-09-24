@@ -213,6 +213,7 @@ export class NodePropertyFactory {
 							displayName: 'Enter ID',
 							name: 'enterId',
 							type: 'string',
+							default: '',
 						},
 						{
 							displayName: 'From List',
@@ -220,6 +221,7 @@ export class NodePropertyFactory {
 							type: 'list',
 							typeOptions: { searchListMethod: 'loadCustomRecordTypes' },
 							hint: 'Can take several mins to load.',
+							default: '',
 						},
 					];
 				}
@@ -727,7 +729,6 @@ export class NodePropertyFactory {
 				},
 			],
 			description: 'List of Custom Fields',
-			required: false,
 		};
 
 		return prop;
@@ -759,8 +760,8 @@ export class NodePropertyFactory {
 				displayOptions: { show: { fieldType: [type] } },
 				options: [
 					{
-						name: 'items',
 						displayName: 'Items',
+						name: 'items',
 						type: 'collection',
 						default: {},
 						typeOptions: { multipleValues: true },

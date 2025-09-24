@@ -27,14 +27,14 @@ export class NetSuiteRest implements INodeType {
 		defaults: { name: 'NetSuite REST' },
 		inputs: ['main'],
 		outputs: ['main'],
-		credentials: [{ name: 'netSuiteRestApi', required: true }],
+		credentials: [{ name: 'netSuiteRestOAuth2Api', required: true }],
 		properties: [
 			{
 				displayName: 'Debug Mode',
 				name: 'isDebugMode',
 				type: 'boolean',
 				default: false,
-				description: 'Include full request and response info in the output',
+				description: 'Whether to include full request and response info in the output',
 			},
 		],
 	};

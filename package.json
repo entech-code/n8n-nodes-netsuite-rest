@@ -1,15 +1,15 @@
 {
 	"name": "n8n-nodes-netsuite-rest",
 	"version": "0.1.0",
-	"description": "",
+	"description": "NetSuite REST API integration for n8n",
 	"keywords": [
 		"n8n-community-node-package"
 	],
 	"license": "MIT",
 	"homepage": "",
 	"author": {
-		"name": "",
-		"email": ""
+		"name": "Eric Popivker",
+		"email": "en@entechsolutions.com"
 	},
 	"repository": {
 		"type": "git",

@@ -61,7 +61,7 @@ export class NodeOperationExecutor {
 			httpRequestData.Headers['Prefer'] = 'transient';
 		}
 
-		const credentials = await this.context.getCredentials('netSuiteRestApi');
+		const credentials = await this.context.getCredentials('netSuiteRestOAuth2Api');
 		const url = credentials.restApiUrl + basePath + httpRequestData.RequestUrl;
 
 		const requestOptions: IHttpRequestOptions = {
@@ -80,7 +80,7 @@ export class NodeOperationExecutor {
 		try {
 			response = await this.context.helpers.httpRequestWithAuthentication.call(
 				this.context,
-				'netSuiteRestApi', // Replace with your credential name
+				'netSuiteRestOAuth2Api', // Replace with your credential name
 				requestOptions,
 			);
 

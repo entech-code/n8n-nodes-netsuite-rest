@@ -140,6 +140,7 @@ module.exports = {
 				'n8n-nodes-base/node-param-resource-without-no-data-expression': 'error',
 				'n8n-nodes-base/node-param-type-options-missing-from-limit': 'error',
 				'n8n-nodes-base/node-param-type-options-password-missing': 'error',
+				'n8n-nodes-base/node-param-fixed-collection-type-unsorted-items': 'off',
 			},
 		},
 	],
