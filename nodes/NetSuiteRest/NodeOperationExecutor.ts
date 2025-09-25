@@ -269,7 +269,20 @@ export class NodeOperationExecutor {
 						break;
 					case 'path':
 						// Replace path param in urlPath, e.g. /customer/{id} => /customer/123
+
+						const schemaPattern = (paramObj?.schema as OpenAPIV3.SchemaObject)?.pattern;
+
+						if (schemaPattern) {
+							if (schemaPattern != 'eid:(.+)')
+								throw new ApplicationError(
+									`Unknown schema pattern '${schemaPattern}' for '${key}': ${value}`,
+								);
+
+							value = `eid:${value}`;
+						}
+
 						const placeholder = `{${key}}`;
+
 						if (!urlPath.includes(placeholder)) {
 							throw new ApplicationError(
 								`Path parameter '${key}' not found in urlPath '${urlPath}'`,

@@ -74,7 +74,8 @@ export class NetSuiteRest implements INodeType {
 			async loadCustomFields(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
 				let resource = this.getNodeParameter('resource', 0) as string;
 
-				if (resource === 'CustomRecord') {
+				const isCustomRecord = resource === 'CustomRecord';
+				if (isCustomRecord) {
 					resource = this.getNodeParameter('customRecordType.value', 0) as string;
 
 					if (!resource)
@@ -89,21 +90,28 @@ export class NetSuiteRest implements INodeType {
 				const recordType = resource.charAt(0).toLowerCase() + resource.slice(1);
 				const customFields = await api.getCustomFields(recordType);
 
-				const options = customFields.map((field) => {
+				const options: INodePropertyOptions[] = [];
+
+				for (const field of customFields) {
+					// Skip the 'name' field for custom records to avoid confusion with the record's actual name field
+					if (isCustomRecord && field.fieldName === 'name') {
+						continue;
+					}
+
 					// Example: if fieldName starts with 'custentity_', add a special marker to description
 					if (OpenApiUtils.isReferenceObject(field.schema)) {
-						return {
+						options.push({
 							name: field.fieldName,
 							value: field.fieldName,
-						};
+						});
 					} else {
-						return {
+						options.push({
 							name: field.fieldName,
 							value: field.fieldName,
 							description: field.schema.title || field.schema.description,
-						};
+						});
 					}
-				});
+				}
 
 				options.sort((a, b) => a.name.localeCompare(b.name));
 
