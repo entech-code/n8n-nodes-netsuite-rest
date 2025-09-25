@@ -138,7 +138,7 @@ export class NetSuiteRestApi {
 
 		const response = await this.context.helpers.httpRequestWithAuthentication.call(
 			this.context,
-			'netSuiteRestApi', // Replace with your credential name
+			'netSuiteRestOAuth2Api',
 			requestOptions,
 		);
 

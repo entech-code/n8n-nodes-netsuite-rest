@@ -59,8 +59,6 @@ export class NetSuiteRest implements INodeType {
 	methods = {
 		listSearch: {
 			async loadCustomRecordTypes(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				NodeOperationExecutor.logNodeParameters(this);
-
 				const api = new NetSuiteRestApi(this);
 				const customRecordTypes = await api.getCustomRecordTypes();
 
@@ -74,9 +72,6 @@ export class NetSuiteRest implements INodeType {
 		},
 		loadOptions: {
 			async loadCustomFields(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-				console.log('Loading custom fields...');
-				NodeOperationExecutor.logNodeParameters(this);
-
 				let resource = this.getNodeParameter('resource', 0) as string;
 
 				if (resource === 'CustomRecord') {
