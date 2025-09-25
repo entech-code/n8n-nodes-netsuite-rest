@@ -1,4 +1,4 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+<img width="206" height="19" alt="image" src="https://github.com/user-attachments/assets/630d08a0-4961-4f77-9a4d-5c8aa4669765" />![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
 
 # n8n NetSuite REST Custom Node
 
@@ -36,21 +36,6 @@ Add a new customer:
 3. On success, the response will include the new customer ID extracted from the NetSuite location header.
 
 
-## Known Issues and workarounds
-
-- Entering date into date field and submitting operation will throw error
-
-  **Workaround**: use expression to format date using ISO
-
-	
-- Search is not available when adding new step using ".  This seems to be limitation for community N8n Nodes.
-
-  **Workaround**: use browser search, for example in chrome press Ctrl-F and name of operation.
-![Search is not available](https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/custom-field-specify-field-type.png)
-
-- Custom Fields - can't auto select type (because searcListMethodOn is not working)
-
-
 # NetSuite Connector Config
 
 ## NetSuite Credential Fields Explained (OAuth 2.0)
@@ -76,6 +61,37 @@ When creating your NetSuite REST API credential in n8n for OAuth 2.0, fill in th
 - Ensure your NetSuite account has SuiteTalk REST Web Services enabled.
 - The REST API URL should match your account's region and sandbox/production status.
 - Permissions for the integration user must include access to the required records and REST web services.
+
+## Known Issues and workarounds
+
+- Entering date into date field and submitting operation may throw error. NetSuite expects dates in ISO 8601 format (like '2025-09-25T14:00:00Z'), but n8n field with Date Selector returns format like '2025-09-25T14:00:00'
+  
+  **Workaround**: use n8n expression to format date to conform to ISO
+```javascript
+{{ '2025-09-25T14:00:00'+'Z' }}   --> 2025-09-25T14:00:00Z
+{{ DateTime.fromISO('2025-09-25T14:00:00').toUTC().toISO() }}  --> 2025-09-25T18:00:00.000Z
+{{ DateTime.fromISO('2025-09-25T14:00:00').toISO() }} --> 2025-09-25T14:00:00.000-04:00
+```
+	
+- Search is not available when adding new step using ".  This seems to be limitation for community N8n Nodes.
+
+<div align="center">
+<img alt="Missing search box" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/missing-search-box.png" style="max-width: 100%; height: auto; width: 400px;"> 
+</div>
+
+  **Workaround**: use browser search, for example in chrome press Ctrl-F and name of operation.
+
+<div align="center">
+<img alt="Missing search box workaround" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/missing-search-box-workaround.png" style="max-width: 100%; height: auto; width: 400px;"> 
+</div>
+
+
+- When filling Custom Fields - can't auto select field type based on NetSuite meta data.  It is related to n8n bug where loadOptionsDependsOn is not working inside FixedCollection
+
+   **Workaround**: select field type manually
+<div align="center">
+<img alt="Search is not availabl" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/custom-field-specify-field-type.png" style="max-width: 100%; height: auto; width: 400px;"> 
+</div>
 
 ## Development
 
