@@ -28,9 +28,26 @@ export class NodeOperationExecutor {
 	}
 
 	async execute(): Promise<INodeExecutionData[][]> {
-		const operation = this.context.getNodeParameter('operation', 0);
-		let resource = this.context.getNodeParameter('resource', 0);
-		const isDebugMode: boolean = Boolean(this.context.getNodeParameter('isDebugMode', 0, false));
+		const inputItemCount = NodeOperationExecutor.getInputItemCount(this.context);
+		const response: INodeExecutionData[] = [];
+
+		for (let itemIndex = 0; itemIndex < inputItemCount; itemIndex++) {
+			try {
+				const itemResponse = await this.executeItem(itemIndex);
+				response.push(itemResponse);
+			} catch {}
+		}
+
+		return [response];
+	}
+
+	async executeItem(itemIndex: number): Promise<INodeExecutionData> {
+		const operation = this.context.getNodeParameter('operation', itemIndex);
+		let resource = this.context.getNodeParameter('resource', itemIndex);
+
+		const isDebugMode: boolean = Boolean(
+			this.context.getNodeParameter('isDebugMode', itemIndex, false),
+		);
 
 		this.context.logger.info(`Executing operation: ${operation}, resource: ${resource}`);
 
@@ -38,7 +55,7 @@ export class NodeOperationExecutor {
 
 		let evaluatedParameters: any = {};
 		for (const key of Object.keys(nodeParameters)) {
-			evaluatedParameters[key] = this.context.getNodeParameter(key, 0);
+			evaluatedParameters[key] = this.context.getNodeParameter(key, itemIndex);
 		}
 
 		// Build HTTP request data
@@ -102,7 +119,7 @@ export class NodeOperationExecutor {
 					}
 				}
 
-				if (isDebugMode) {
+				if (isDebugMode && itemIndex === 0) {
 					response = this.appendDebugInfoToResponse(requestOptions, response, fullResponse);
 				}
 			}
@@ -117,7 +134,7 @@ export class NodeOperationExecutor {
 			response = this.appendErrorDebugInfoToResponse(requestOptions, response, error);
 		}
 
-		return [[{ json: response }]];
+		return { json: response };
 	}
 
 	static getIdFromResponseLocation(location: string): string {
@@ -427,17 +444,28 @@ export class NodeOperationExecutor {
 
 	public static logNodeParameters(context: IExecuteFunctions | ILoadOptionsFunctions) {
 		const allParams = context.getNode().parameters;
+		const inputItemCount = NodeOperationExecutor.getInputItemCount(context);
 
-		const paramValues: Record<string, any> = {};
-		for (const key of Object.keys(allParams)) {
-			try {
-				const value = context.getNodeParameter(key, 0);
-				paramValues[key] = value;
-			} catch (e) {
-				context.logger.info(`Error parsing node parameter '${key}':  `, e);
+		for (let itemIndex = 0; itemIndex < inputItemCount; itemIndex++) {
+			const paramValues: Record<string, any> = {};
+			for (const key of Object.keys(allParams)) {
+				try {
+					const value = context.getNodeParameter(key, itemIndex);
+					paramValues[key] = value;
+				} catch (e) {
+					context.logger.info(`Error parsing node parameter '${key}':  `, e);
+				}
 			}
-		}
 
-		console.log('Node Parameters: ', JSON.stringify(paramValues, null, 2));
+			console.log(`Node Parameters for Item ${itemIndex}:`, JSON.stringify(paramValues, null, 2));
+		}
+	}
+
+	public static getInputItemCount(context: IExecuteFunctions | ILoadOptionsFunctions): number {
+		let inputItemCount = 1;
+
+		if ('getInputData' in context) inputItemCount = context.getInputData().length;
+
+		return inputItemCount;
 	}
 }
