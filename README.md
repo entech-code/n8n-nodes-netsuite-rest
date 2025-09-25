@@ -39,11 +39,13 @@ Add a new customer:
 ## Known Issues and workarounds
 
 - Entering date into date field and submitting operation will throw error
-  Workaround: use expression to format date using ISO
+
+  **Workaround**: use expression to format date using ISO
 
 	
 - Search is not available when adding new step using ".  This seems to be limitation for community N8n Nodes.
-  workaround: use browser search, for example in chrome press Ctrl-F and name of operation.
+
+  **Workaround**: use browser search, for example in chrome press Ctrl-F and name of operation.
 ![Search is not available](https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/custom-field-specify-field-type.png)
 
 - Custom Fields - can't auto select type (because searcListMethodOn is not working)
