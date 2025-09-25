@@ -8,6 +8,30 @@ export class NetSuiteRestOAuth2Api implements ICredentialType {
 		'https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157780312610.html';
 	properties: INodeProperties[] = [
 		{
+			displayName: 'Grant Type',
+			name: 'grantType',
+			type: 'hidden',
+			default: 'authorizationCode',
+		},
+		{
+			displayName: 'Authentication',
+			name: 'authentication',
+			type: 'hidden',
+			default: 'header',
+		},
+		{
+			displayName: 'Auth URI Query Parameters',
+			name: 'authQueryParameters',
+			type: 'hidden',
+			default: '',
+		},
+		{
+			displayName: 'Scope',
+			name: 'scope',
+			type: 'hidden',
+			default: 'rest_webservices',
+		},
+		{
 			displayName: 'REST API Url',
 			name: 'restApiUrl',
 			type: 'string',

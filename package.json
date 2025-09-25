@@ -34,7 +34,7 @@
 	"n8n": {
 		"n8nNodesApiVersion": 1,
 		"credentials": [
-			"dist/credentials/NetSuiteRestApi.credentials.js"
+			"dist/credentials/NetSuiteRestOAuth2Api.credentials.js"
 		],
 		"nodes": [
 			"dist/nodes/NetSuiteRest/NetSuiteRest.node.js"
