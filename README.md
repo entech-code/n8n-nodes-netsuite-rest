@@ -11,9 +11,13 @@ This project provides a custom n8n node for integrating with NetSuite's SuiteTal
 - Handles required/optional fields and nested collections
 - Automatically extracts new record IDs from NetSuite responses
 - Includes debug mode for detailed request/response output
-- **Custom Fields support** - Work with custom entity fields (`custentity_*`), body fields (`custbody_*`), and line fields (`custcol_*`)
+- **Custom Fields support** - Work with custom entity fields (`custentity_*`) and body fields (`custbody_*`)
 - **Custom Records integration** - Create, read, update, and delete custom record types
 - **SuiteQL queries** - Execute powerful SQL-like queries against NetSuite data with full SuiteQL syntax support
+
+## Upcoming Features
+- Custom Fields support for line fields like Sales Order line items
+- Triggers
 
 ## Usage
 
@@ -27,9 +31,23 @@ This project provides a custom n8n node for integrating with NetSuite's SuiteTal
 
 Add a new customer:
 
-1. Set resource to `Customer` and operation to `Add`.
-2. Provide required fields (e.g., Email).
+1. Set resource to `Customer` and operation to `Insert record`.
+2. Provide required, optional and custom fields (e.g., Email).
 3. On success, the response will include the new customer ID extracted from the NetSuite location header.
+
+
+## Known Issues and workarounds
+
+- Entering date into date field and submitting operation will throw error
+  Workaround: use expression to format date using ISO
+
+	
+- Search is not available when adding new step using ".  This seems to be limitation for community N8n Nodes.
+  workaround: use browser search, for example in chrome press Ctrl-F and name of operation.
+![Search is not available](https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/custom-field-specify-field-type.png)
+
+- Custom Fields - can't auto select type (because searcListMethodOn is not working)
+
 
 # NetSuite Connector Config
 
@@ -48,11 +66,8 @@ When creating your NetSuite REST API credential in n8n for OAuth 2.0, fill in th
 
 ### OAuth 2.0 Notes
 
-- You must create an integration record in NetSuite and enable OAuth 2.0.
-- Redirect URI in NetSuite must match the one used by n8n.
+- You must [create an integration record](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157771733782.html) in NetSuite and enable OAuth 2.0.
 - The user authorizing the connection must have permissions for SuiteTalk REST Web Services and the required records.
-
-Refer to NetSuite documentation and n8n's OAuth 2.0 credential setup guide for more details.
 
 ### Configuration Tips
 
@@ -62,9 +77,7 @@ Refer to NetSuite documentation and n8n's OAuth 2.0 credential setup guide for m
 
 ## Development
 
-See the rest of this README for setup and development instructions.
-
-...
+If you would like to have access to code or assist with development, please contact by email: support@entechsolutions.com .
 
 ## License
 
