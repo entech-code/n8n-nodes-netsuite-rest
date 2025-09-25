@@ -11,6 +11,9 @@ This project provides a custom n8n node for integrating with NetSuite's SuiteTal
 - Handles required/optional fields and nested collections
 - Automatically extracts new record IDs from NetSuite responses
 - Includes debug mode for detailed request/response output
+- **Custom Fields support** - Work with custom entity fields (`custentity_*`), body fields (`custbody_*`), and line fields (`custcol_*`)
+- **Custom Records integration** - Create, read, update, and delete custom record types
+- **SuiteQL queries** - Execute powerful SQL-like queries against NetSuite data with full SuiteQL syntax support
 
 ## Usage
 
