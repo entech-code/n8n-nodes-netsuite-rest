@@ -76,13 +76,13 @@ When creating your NetSuite REST API credential in n8n for OAuth 2.0, fill in th
 - Search is not available when adding new step using ".  This seems to be limitation for community N8n Nodes.
 
 <div align="center">
-<img alt="Missing search box" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/missing-search-box.png" style="max-width: 100%; height: auto; width: 400px;"> 
+<img alt="Missing search box" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/known-issue-missing-search-box.png" style="max-width: 100%; height: auto; width: 400px;"> 
 </div>
 
   **Workaround**: use browser search, for example in chrome press Ctrl-F and name of operation.
 
 <div align="center">
-<img alt="Missing search box workaround" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/missing-search-box-workaround.png" style="max-width: 100%; height: auto; width: 400px;"> 
+<img alt="Missing search box workaround" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/known-issue-missing-search-box-workaround.png" style="max-width: 100%; height: auto; width: 400px;"> 
 </div>
 
 
@@ -90,7 +90,7 @@ When creating your NetSuite REST API credential in n8n for OAuth 2.0, fill in th
 
    **Workaround**: select field type manually
 <div align="center">
-<img alt="Search is not availabl" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/custom-field-specify-field-type.png" style="max-width: 100%; height: auto; width: 400px;"> 
+<img alt="Search is not availabl" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/known-issue-custom-field-specify-field-type.png" style="max-width: 100%; height: auto; width: 400px;"> 
 </div>
 
 ## Development
