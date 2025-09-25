@@ -7,13 +7,34 @@ This project provides a custom n8n node for integrating with NetSuite's SuiteTal
 ## Features
 
 - Connect to NetSuite using REST API credentials
-- Supports standard NetSuite record operations (GET, POST, etc.)
+- Full support for 170+ NetSuite standard record types like Customers, InventoryItems, SalesOrders, etc...
 - Handles required/optional fields and nested collections
 - Automatically extracts new record IDs from NetSuite responses
 - Includes debug mode for detailed request/response output
 - **Custom Fields support** - Work with custom entity fields (`custentity_*`) and body fields (`custbody_*`)
 - **Custom Records integration** - Create, read, update, and delete custom record types
 - **SuiteQL queries** - Execute powerful SQL-like queries against NetSuite data with full SuiteQL syntax support
+
+
+## Screenshots of NetSuite REST node in Action
+
+170+ NetSuite Standard Record types with all the fields including custom fields:
+<div align="center">
+<img alt="Standard Record Types" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/feature-standard-record-types.png" style="max-width: 100%; height: auto; width: 600px;"> 
+</div>
+
+
+SuiteQL and Debug Mode:
+<div align="center">
+<img alt="SuiteQL and Debug Mode" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/feature-suiteql-and-debug-mode.png" style="max-width: 100%; height: auto; width: 600px;"> 
+</div>
+
+Custom Records and Custom Fields:
+<div align="center">
+<img alt="Custom Record and Custom Fields" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/feature-custom-record-and-custom-fields.png" style="max-width: 100%; height: auto; width: 600px;"> 
+</div>
+
+
 
 ## Upcoming Features
 - Custom Fields support for line fields like Sales Order line items
