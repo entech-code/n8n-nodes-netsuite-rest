@@ -31,23 +31,96 @@ export class NodeOperationExecutor {
 		const inputItemCount = NodeOperationExecutor.getInputItemCount(this.context);
 		const response: INodeExecutionData[] = [];
 
+		const isDebugMode: boolean = Boolean(this.context.getNodeParameter('isDebugMode', 0, false));
+
 		for (let itemIndex = 0; itemIndex < inputItemCount; itemIndex++) {
-			try {
-				const itemResponse = await this.executeItem(itemIndex);
-				response.push(itemResponse);
-			} catch {}
+			const itemResponse = await this.executeItem(itemIndex, inputItemCount, isDebugMode);
+			response.push(itemResponse);
 		}
 
 		return [response];
 	}
 
-	async executeItem(itemIndex: number): Promise<INodeExecutionData> {
+	async executeItem(
+		itemIndex: number,
+		totalItems: number,
+		isDebugMode: boolean = false,
+	): Promise<INodeExecutionData> {
+		const httpRequestOptions = await this.createHttpRequestOptions(itemIndex, isDebugMode);
+
+		const onErrorSetting = this.context.getNode().onError;
+		const isContinueOnFail: boolean = this.context.continueOnFail();
+
+		let response;
+		let fullResponse;
+		try {
+			response = await this.context.helpers.httpRequestWithAuthentication.call(
+				this.context,
+				'netSuiteRestOAuth2Api', // Replace with your credential name
+				httpRequestOptions,
+			);
+
+			if (isDebugMode || httpRequestOptions.method === 'POST') {
+				fullResponse = response;
+				response = response.body;
+
+				if (httpRequestOptions.method === 'POST' && fullResponse.statusCode === 204) {
+					// location example:  "https://<accountId>.suitetalk.api.netsuite.com/services/rest/record/v1/customer/<newId>"
+					const location: string = fullResponse?.headers?.location;
+
+					if (!location)
+						throw new ApplicationError('Location header not found in response, cannot extract ID');
+
+					const newId = NodeOperationExecutor.getIdFromResponseLocation(location);
+
+					if (newId) {
+						response = { id: newId };
+					}
+				}
+
+				if (isDebugMode) {
+					response = this.appendDebugInfoToResponse(httpRequestOptions, response, fullResponse);
+				}
+			}
+		} catch (error) {
+			if (!isDebugMode && !isContinueOnFail)
+				throw new NodeApiError(this.context.getNode(), error, {
+					itemIndex: itemIndex, // ✅ This is correct
+					//message: `NetSuite API request failed for item ${itemIndex}`,
+					//description: 'Check your NetSuite credentials and permissions',
+				});
+
+			response = {
+				error: error.message,
+				statusCode: error?.context?.data?.status,
+				statusMessage: error?.description,
+			};
+
+			if (isDebugMode) {
+				response = this.appendErrorDebugInfoToResponse(httpRequestOptions, response, error);
+			}
+
+			//There are 3 optons for onErrorSetting: 'stopWorkflow', 'continueRegularOutput', 'continueErrorOutput'
+			//n8n returns just error.message for 'stopWorkflow' and 'continueRegularOutput' and full response for 'continueErrorOutput'
+			//so in case of debug mode and first two options - we send non-error request back to show debug info
+			if (!isDebugMode || onErrorSetting === 'continueErrorOutput') {
+				const nodeApiError = new NodeApiError(this.context.getNode(), error, {
+					itemIndex: itemIndex,
+				});
+
+				return { json: response, pairedItem: { item: itemIndex }, error: nodeApiError };
+			}
+		}
+
+		return { json: response, pairedItem: { item: itemIndex } };
+	}
+
+	async createHttpRequestOptions(
+		itemIndex: number,
+		isDebugMode: boolean = false,
+	): Promise<IHttpRequestOptions> {
 		const operation = this.context.getNodeParameter('operation', itemIndex);
 		let resource = this.context.getNodeParameter('resource', itemIndex);
-
-		const isDebugMode: boolean = Boolean(
-			this.context.getNodeParameter('isDebugMode', itemIndex, false),
-		);
 
 		this.context.logger.info(`Executing operation: ${operation}, resource: ${resource}`);
 
@@ -91,50 +164,7 @@ export class NodeOperationExecutor {
 			json: true,
 		};
 
-		// Make HTTP request using n8n helper
-		let response;
-		let fullResponse;
-		try {
-			response = await this.context.helpers.httpRequestWithAuthentication.call(
-				this.context,
-				'netSuiteRestOAuth2Api', // Replace with your credential name
-				requestOptions,
-			);
-
-			if (isDebugMode || httpRequestData.HttpMethod === 'POST') {
-				fullResponse = response;
-				response = response.body;
-
-				if (httpRequestData.HttpMethod === 'POST' && fullResponse.statusCode === 204) {
-					// location example:  "https://<accountId>.suitetalk.api.netsuite.com/services/rest/record/v1/customer/<newId>"
-					const location: string = fullResponse?.headers?.location;
-
-					if (!location)
-						throw new ApplicationError('Location header not found in response, cannot extract ID');
-
-					const newId = NodeOperationExecutor.getIdFromResponseLocation(location);
-
-					if (newId) {
-						response = { id: newId };
-					}
-				}
-
-				if (isDebugMode && itemIndex === 0) {
-					response = this.appendDebugInfoToResponse(requestOptions, response, fullResponse);
-				}
-			}
-		} catch (error) {
-			if (!isDebugMode) throw new NodeApiError(this.context.getNode(), error);
-
-			response = {
-				statusCode: error?.context?.data?.status,
-				statusMessage: error?.description,
-			};
-
-			response = this.appendErrorDebugInfoToResponse(requestOptions, response, error);
-		}
-
-		return { json: response };
+		return requestOptions;
 	}
 
 	static getIdFromResponseLocation(location: string): string {
