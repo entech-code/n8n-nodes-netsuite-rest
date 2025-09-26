@@ -30,12 +30,16 @@ export class NodeOperationExecutor {
 	async execute(): Promise<INodeExecutionData[][]> {
 		const inputItemCount = NodeOperationExecutor.getInputItemCount(this.context);
 		const response: INodeExecutionData[] = [];
+		const isContinueOnFail: boolean = this.context.continueOnFail();
 
 		const isDebugMode: boolean = Boolean(this.context.getNodeParameter('isDebugMode', 0, false));
 
 		for (let itemIndex = 0; itemIndex < inputItemCount; itemIndex++) {
 			const itemResponse = await this.executeItem(itemIndex, inputItemCount, isDebugMode);
 			response.push(itemResponse);
+
+			//Special case to stop execution on first error when debug info is returned
+			if (isDebugMode && !isContinueOnFail && 'error' in itemResponse.json) break;
 		}
 
 		return [response];
