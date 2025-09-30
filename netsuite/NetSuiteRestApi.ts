@@ -4,15 +4,7 @@ import {
 	ApplicationError,
 	ILoadOptionsFunctions,
 } from 'n8n-workflow';
-import axios, { AxiosRequestConfig } from 'axios';
 import { OpenAPIV3 } from 'openapi-types';
-
-export interface GetAccessTokenFromRefreshTokenRequest {
-	clientId: string;
-	clientSecret: string;
-	refreshToken?: string;
-	restApiUrl: string;
-}
 
 export interface CustomFieldSchema {
 	fieldName: string;
@@ -29,18 +21,10 @@ interface HttpRequestData {
 }
 
 export class NetSuiteRestApi {
-	private context: IExecuteFunctions | ILoadOptionsFunctions | null;
-	private accessToken?: string;
-	private restApiUrl?: string;
+	private context: IExecuteFunctions | ILoadOptionsFunctions;
 
-	constructor(
-		context: IExecuteFunctions | ILoadOptionsFunctions | null,
-		accessToken?: string,
-		restApiUrl?: string,
-	) {
+	constructor(context: IExecuteFunctions | ILoadOptionsFunctions) {
 		this.context = context;
-		this.accessToken = accessToken;
-		this.restApiUrl = restApiUrl;
 	}
 
 	async getCustomRecordTypes(): Promise<string[]> {
@@ -105,12 +89,7 @@ export class NetSuiteRestApi {
 	// Example method to make an authenticated request
 	async request(httpRequestData: HttpRequestData): Promise<any> {
 		console.log('Request Data:', httpRequestData);
-		if (this.context) {
-			return await this.requestWithN8n(httpRequestData);
-		}
-
-		//use access token
-		return await this.requestWithAxios(httpRequestData);
+		return await this.requestWithN8n(httpRequestData);
 	}
 
 	async requestWithN8n(httpRequestData: HttpRequestData): Promise<any> {
@@ -143,49 +122,5 @@ export class NetSuiteRestApi {
 		);
 
 		return response;
-	}
-
-	async requestWithAxios(httpRequestData: HttpRequestData): Promise<any> {
-		const url = this.restApiUrl + '/services/rest/record/v1' + httpRequestData.RequestUrl;
-
-		console.log('Making Axios request to URL:', url);
-		const config: AxiosRequestConfig = {
-			method: httpRequestData.HttpMethod,
-			url: url,
-			headers: {
-				...httpRequestData.Headers,
-				Authorization: `Bearer ${this.accessToken}`,
-			},
-			params: httpRequestData.QueryString,
-			data: httpRequestData.RequestBody,
-		};
-
-		const response = await axios(config);
-		return response.data;
-	}
-
-	static async getAccessTokenFromRefreshToken(
-		request: GetAccessTokenFromRefreshTokenRequest,
-	): Promise<string> {
-		const tokenUrl = `${request.restApiUrl}/services/rest/auth/oauth2/v1/token`;
-		const params = new URLSearchParams();
-		params.append('grant_type', 'refresh_token');
-		params.append('client_id', request.clientId);
-		params.append('client_secret', request.clientSecret);
-		params.append('refresh_token', request.refreshToken || '');
-
-		// Use axios directly for token request
-		const config: AxiosRequestConfig = {
-			method: 'POST',
-			url: tokenUrl,
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			data: params.toString(),
-		};
-		const response = await axios(config);
-
-		if (!response.data.access_token) throw new Error('No access_token in NetSuite response');
-		return response.data.access_token;
 	}
 }
