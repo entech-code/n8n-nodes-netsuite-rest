@@ -7,7 +7,7 @@ This project provides a custom n8n node for integrating with NetSuite's SuiteTal
 ## Features
 
 - Connect to NetSuite using REST API credentials
-- Full support for 170+ NetSuite standard record types like Customers, InventoryItems, SalesOrders, etc...
+- Full support for 150+ NetSuite standard record types like Customers, InventoryItems, SalesOrders, etc...
 - Handles required/optional fields and nested collections
 - Automatically extracts new record IDs from NetSuite responses
 - Includes debug mode for detailed request/response output
