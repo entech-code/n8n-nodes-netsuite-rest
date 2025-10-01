@@ -40,11 +40,32 @@ Custom Records and Custom Fields:
 - Custom Fields support for line fields like Sales Order line items
 - Triggers
 
+## Installation
+
+> [!NOTE]
+> Only the n8n instance owner of a self-hosted n8n instance can install and manage community nodes from npm. The instance owner is the person who sets up and manages user management.
+
+To install a community node from npm:
+
+1. Go to Settings > Community Nodes.
+2. Select Install.
+3. Enter the npm package name 'n8n-nodes-netsuite-rest'. 
+4. Agree to the risks of using community nodes: select I understand the risks of installing unverified code from a public source.
+5. Select Install. n8n installs the node, and returns to the Community Nodes list in Settings.
+
+<div align="center">
+<img alt="Install node from npm" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-install-node-from-npm.png" style="max-width: 100%; height: auto; width: 600px;"> 
+</div>
+
+
+
+[Full n8n Installation Instructions](https://docs.n8n.io/integrations/community-nodes/installation/gui-install)
+ 
 ## Usage
 
 1. Install and configure your NetSuite REST API credentials in n8n.
 2. Add the NetSuite REST Test node to your workflow.
-3. Select the resource and operation (e.g., Customer > Add).
+3. Select the resource and operation (e.g., Customer > Insert record).
 4. Fill in required fields and run the workflow.
 5. The node will return NetSuite API responses, including new record IDs for POST operations.
 
@@ -58,7 +79,22 @@ Add a new customer:
 
 # NetSuite Connector Config
 
-## NetSuite Credential Fields Explained (OAuth 2.0)
+### NetSuite Integration Record
+
+You must [create an integration record](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157771733782.html) in NetSuite and enable OAuth 2.0.
+
+<div align="center">
+<img alt="NetSuite Integration" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-netsuite-integration.png" style="max-width: 100%; height: auto; width: 600px;"> 
+</div>
+
+
+For Redirect URI use the OAuth Redirect Url from n8n Credentials.  See next section.
+<div align="center">
+<img alt="Get OAuth Redirect Url from N8n Credentials" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-n8n-oauth-redirect-url.png" style="max-width: 100%; height: auto; width: 600px;"> 
+</div>
+
+
+## N8n NetSuite Credential Fields Explained
 
 **Note:** For NetSuite sandboxes, your account ID is usually formatted as `1234567_SB1` in the NetSuite UI, but in URLs it must be lowercase and use a dash: `1234567-sb1`.
 
@@ -70,11 +106,6 @@ When creating your NetSuite REST API credential in n8n for OAuth 2.0, fill in th
 - **Client Secret**: Your NetSuite application (integration record) Client Secret
 - **Scope**: Use `rest_webservices`
 - **REST API URL**: `https://<accountId>.suitetalk.api.netsuite.com`
-
-### OAuth 2.0 Notes
-
-- You must [create an integration record](https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157771733782.html) in NetSuite and enable OAuth 2.0.
-- The user authorizing the connection must have permissions for SuiteTalk REST Web Services and the required records.
 
 ### Configuration Tips
 
