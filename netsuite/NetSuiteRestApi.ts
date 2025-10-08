@@ -88,7 +88,6 @@ export class NetSuiteRestApi {
 
 	// Example method to make an authenticated request
 	async request(httpRequestData: HttpRequestData): Promise<any> {
-		console.log('Request Data:', httpRequestData);
 		return await this.requestWithN8n(httpRequestData);
 	}
 
@@ -99,7 +98,6 @@ export class NetSuiteRestApi {
 		const credentials = await this.context.getCredentials('netSuiteRestOAuth2Api');
 
 		const url = credentials.restApiUrl + '/services/rest/record/v1' + httpRequestData.RequestUrl;
-		console.log('Making N8n request to URL:', url);
 
 		const requestOptions: IHttpRequestOptions = {
 			method: httpRequestData.HttpMethod as any,

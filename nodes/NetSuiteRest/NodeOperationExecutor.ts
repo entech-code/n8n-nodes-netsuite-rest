@@ -126,8 +126,6 @@ export class NodeOperationExecutor {
 		const operation = this.context.getNodeParameter('operation', itemIndex);
 		let resource = this.context.getNodeParameter('resource', itemIndex);
 
-		this.context.logger.info(`Executing operation: ${operation}, resource: ${resource}`);
-
 		let nodeParameters = this.context.getNode().parameters;
 
 		let evaluatedParameters: any = {};
@@ -474,25 +472,6 @@ export class NodeOperationExecutor {
 			result[field.fieldName] = field.value;
 		}
 		return result;
-	}
-
-	public static logNodeParameters(context: IExecuteFunctions | ILoadOptionsFunctions) {
-		const allParams = context.getNode().parameters;
-		const inputItemCount = NodeOperationExecutor.getInputItemCount(context);
-
-		for (let itemIndex = 0; itemIndex < inputItemCount; itemIndex++) {
-			const paramValues: Record<string, any> = {};
-			for (const key of Object.keys(allParams)) {
-				try {
-					const value = context.getNodeParameter(key, itemIndex);
-					paramValues[key] = value;
-				} catch (e) {
-					context.logger.info(`Error parsing node parameter '${key}':  `, e);
-				}
-			}
-
-			console.log(`Node Parameters for Item ${itemIndex}:`, JSON.stringify(paramValues, null, 2));
-		}
 	}
 
 	public static getInputItemCount(context: IExecuteFunctions | ILoadOptionsFunctions): number {

@@ -441,7 +441,6 @@ export class NodePropertyFactory {
 		}
 
 		if (!OpenApiUtils.isSchemaObject(propSchema)) {
-			console.log('Prop schema:', propSchema);
 			throw new ApplicationError(
 				`Component Property schema for property '${propName}' should be a schema object.`,
 			);

@@ -18,7 +18,8 @@ describe('NetSuiteRestApiSchemaService', () => {
 			openApiDocument.components && openApiDocument.components.schemas
 				? Object.keys(openApiDocument.components.schemas).length
 				: 0;
-		console.log('Paths count:', pathCount);
-		console.log('Components count:', componentCount);
+
+		expect(pathCount).toBeGreaterThan(100);
+		expect(componentCount).toBeGreaterThan(100);
 	});
 });
