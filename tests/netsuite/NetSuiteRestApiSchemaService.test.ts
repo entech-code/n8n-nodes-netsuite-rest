@@ -5,7 +5,7 @@ describe('NetSuiteRestApiSchemaService', () => {
 	test('should load schema if file exists', () => {
 		const service = new NetSuiteRestApiSchemaService();
 
-		const result = service.loadFromFile();
+		const result = service.load();
 		expect(result).not.toBeNull();
 
 		const typedResult = result as NetSuiteRestApiSchema;

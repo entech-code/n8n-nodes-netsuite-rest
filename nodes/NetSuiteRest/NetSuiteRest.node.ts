@@ -45,7 +45,7 @@ export class NetSuiteRest implements INodeType {
 
 	addPropertiesFromNetSuiteSchema() {
 		const schemaService = new NetSuiteRestApiSchemaService();
-		const schema: NetSuiteRestApiSchema = schemaService.loadFromFile();
+		const schema: NetSuiteRestApiSchema = schemaService.load();
 
 		const config = { sortCollections: true };
 		const factory = new NodePropertyFactory(schema, config);
@@ -122,7 +122,7 @@ export class NetSuiteRest implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const schemaService = new NetSuiteRestApiSchemaService();
-		const schema: NetSuiteRestApiSchema = schemaService.loadFromFile();
+		const schema: NetSuiteRestApiSchema = schemaService.load();
 
 		const executor = new NodeOperationExecutor(this, schema);
 		return await executor.execute();
