@@ -85,9 +85,9 @@ You must [create an integration record](https://docs.oracle.com/en/cloud/saas/ne
 <img alt="NetSuite Integration" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-netsuite-integration.png" style="max-width: 100%; height: auto; width: 600px;"> 
 </div>
 
-For Redirect URI use the OAuth Redirect Url from n8n Credentials. See next section.
-
 You can also select RESTLETS in SCOPE if you plan to call Restlets.
+
+For Redirect URI use the OAuth Redirect Url from n8n Credentials. See next section.
 
 <div align="center">
 <img alt="Get OAuth Redirect Url from N8n Credentials" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-n8n-oauth-redirect-url.png" style="max-width: 100%; height: auto; width: 600px;"> 
