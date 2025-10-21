@@ -8,6 +8,7 @@ import {
 	NodeApiError,
 } from 'n8n-workflow';
 import NetSuiteRestApiSchema from '../../netsuite/NetSuiteRestApiSchema';
+import { NetSuiteUtils } from '../../utils/NetSuiteUtils';
 import { OpenAPIV3 } from 'openapi-types';
 
 interface HttpRequestData {
@@ -60,7 +61,7 @@ export class NodeOperationExecutor {
 		try {
 			response = await this.context.helpers.httpRequestWithAuthentication.call(
 				this.context,
-				'netSuiteRestOAuth2Api', // Replace with your credential name
+				'netSuiteRestOAuth2Api',
 				httpRequestOptions,
 			);
 
@@ -69,7 +70,7 @@ export class NodeOperationExecutor {
 				response = response.body;
 
 				if (httpRequestOptions.method === 'POST' && fullResponse.statusCode === 204) {
-					// location example:  "https://<accountId>.suitetalk.api.netsuite.com/services/rest/record/v1/customer/<newId>"
+					// location example:  "https://<accountSubdomain>.suitetalk.api.netsuite.com/services/rest/record/v1/customer/<newId>"
 					const location: string = fullResponse?.headers?.location;
 
 					if (!location)
@@ -79,6 +80,17 @@ export class NodeOperationExecutor {
 
 					if (newId) {
 						response = { id: newId };
+					}
+				}
+
+				// Ensure we have a proper response object even if body is empty
+				if (!response && fullResponse) {
+					if (fullResponse.statusCode >= 200 && fullResponse.statusCode < 300) {
+						response = {
+							success: true,
+							statusCode: fullResponse.statusCode,
+							message: fullResponse.statusMessage || 'Request successful',
+						};
 					}
 				}
 
@@ -116,6 +128,14 @@ export class NodeOperationExecutor {
 			}
 		}
 
+		if (!response) {
+			response = { success: true, message: 'Request completed successfully' };
+		}
+
+		if (typeof response !== 'object' || response === null) {
+			response = { result: response };
+		}
+
 		return { json: response, pairedItem: { item: itemIndex } };
 	}
 
@@ -147,14 +167,14 @@ export class NodeOperationExecutor {
 			});
 
 		//Special handling for SuiteQL requests
-		let basePath = '/services/rest/record/v1';
+		let basePath = '/record/v1';
 		if (resource === 'SuiteQL') {
-			basePath = '/services/rest/query/v1';
+			basePath = '/query/v1';
 			httpRequestData.Headers['Prefer'] = 'transient';
 		}
 
 		const credentials = await this.context.getCredentials('netSuiteRestOAuth2Api');
-		const url = credentials.restApiUrl + basePath + httpRequestData.RequestUrl;
+		const url = NetSuiteUtils.baseRestApiUrl(credentials) + basePath + httpRequestData.RequestUrl;
 
 		const requestOptions: IHttpRequestOptions = {
 			method: httpRequestData.HttpMethod as any,

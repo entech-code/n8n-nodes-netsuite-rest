@@ -14,11 +14,6 @@ export const OPEN_API_SCHEMA: OpenAPIV3.Document = {
 		},
 		version: 'v1',
 	},
-	servers: [
-		{
-			url: 'https://8119897-sb2.suitetalk.api.netsuite.com/services/rest/record/v1',
-		},
-	],
 	security: [
 		{
 			'OAuth_1.0_authorization': [],

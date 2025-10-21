@@ -5,6 +5,7 @@ import {
 	ILoadOptionsFunctions,
 } from 'n8n-workflow';
 import { OpenAPIV3 } from 'openapi-types';
+import { NetSuiteUtils } from '../utils/NetSuiteUtils';
 
 export interface CustomFieldSchema {
 	fieldName: string;
@@ -97,7 +98,8 @@ export class NetSuiteRestApi {
 		}
 		const credentials = await this.context.getCredentials('netSuiteRestOAuth2Api');
 
-		const url = credentials.restApiUrl + '/services/rest/record/v1' + httpRequestData.RequestUrl;
+		const url =
+			NetSuiteUtils.baseRestApiUrl(credentials) + '/record/v1' + httpRequestData.RequestUrl;
 
 		const requestOptions: IHttpRequestOptions = {
 			method: httpRequestData.HttpMethod as any,

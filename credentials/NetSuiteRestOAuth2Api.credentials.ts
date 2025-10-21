@@ -8,10 +8,35 @@ export class NetSuiteRestOAuth2Api implements ICredentialType {
 		'https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157780312610.html';
 	properties: INodeProperties[] = [
 		{
+			displayName: 'Account Subdomain',
+			name: 'accountSubdomain',
+			required: true,
+			type: 'string',
+			default: '',
+			description:
+				'Get account subdomain from NetSuite url after login into your NetSuite account. Usually https://[account-subdomain].app.netsuite.com',
+		},
+		{
 			displayName: 'Grant Type',
 			name: 'grantType',
 			type: 'hidden',
 			default: 'authorizationCode',
+		},
+		{
+			displayName: 'Authorization URL',
+			name: 'authUrl',
+			type: 'hidden',
+			default:
+				'=https://{{$self["accountSubdomain"]}}.app.netsuite.com/app/login/oauth2/authorize.nl',
+			required: true,
+		},
+		{
+			displayName: 'Access Token URL',
+			name: 'accessTokenUrl',
+			type: 'hidden',
+			default:
+				'=https://{{$self["accountSubdomain"]}}.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token',
+			required: true,
 		},
 		{
 			displayName: 'Authentication',
@@ -28,18 +53,10 @@ export class NetSuiteRestOAuth2Api implements ICredentialType {
 		{
 			displayName: 'Scope',
 			name: 'scope',
-			type: 'hidden',
-			default: 'rest_webservices',
-		},
-		{
-			displayName: 'REST API Url',
-			name: 'restApiUrl',
-			type: 'string',
 			required: true,
-			default: '',
-			placeholder: 'https://<account_id>.suitetalk.api.netsuite.com',
-			description:
-				'Usually found in Setup -> Company -> Company Information -> Company URLS -> SUITETALK (SOAP and REST WEB SERVICES).',
+			type: 'string',
+			default: 'rest_webservices',
+			description: "Change it to 'rest_webservices restlets' if you want to use Restlets as well",
 		},
 	];
 }

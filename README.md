@@ -49,7 +49,7 @@ To install a community node from npm:
 
 1. Go to Settings > Community Nodes.
 2. Select Install.
-3. Enter the npm package name 'n8n-nodes-netsuite-rest'. 
+3. Enter the npm package name 'n8n-nodes-netsuite-rest'.
 4. Agree to the risks of using community nodes: select I understand the risks of installing unverified code from a public source.
 5. Select Install. n8n installs the node, and returns to the Community Nodes list in Settings.
 
@@ -57,10 +57,8 @@ To install a community node from npm:
 <img alt="Install node from npm" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-install-node-from-npm.png" style="max-width: 100%; height: auto; width: 600px;"> 
 </div>
 
-
-
 [Full n8n Installation Instructions](https://docs.n8n.io/integrations/community-nodes/installation/gui-install)
- 
+
 ## Usage
 
 1. Install and configure your NetSuite REST API credentials in n8n.
@@ -87,12 +85,11 @@ You must [create an integration record](https://docs.oracle.com/en/cloud/saas/ne
 <img alt="NetSuite Integration" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-netsuite-integration.png" style="max-width: 100%; height: auto; width: 600px;"> 
 </div>
 
+For Redirect URI use the OAuth Redirect Url from n8n Credentials. See next section.
 
-For Redirect URI use the OAuth Redirect Url from n8n Credentials.  See next section.
 <div align="center">
 <img alt="Get OAuth Redirect Url from N8n Credentials" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-n8n-oauth-redirect-url.png" style="max-width: 100%; height: auto; width: 600px;"> 
 </div>
-
 
 ## N8n NetSuite Credential Fields Explained
 
@@ -100,17 +97,14 @@ For Redirect URI use the OAuth Redirect Url from n8n Credentials.  See next sect
 
 When creating your NetSuite REST API credential in n8n for OAuth 2.0, fill in the following fields:
 
-- **Authorization URL**: `https://<accountId>.app.netsuite.com/app/login/oauth2/authorize.nl`
-- **Access Token URL**: `https://<accountId>.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token`
 - **Client ID**: Your NetSuite application (integration record) Client ID
 - **Client Secret**: Your NetSuite application (integration record) Client Secret
-- **Scope**: Use `rest_webservices`
-- **REST API URL**: `https://<accountId>.suitetalk.api.netsuite.com`
+- **Scope**: Use `rest_webservices` or 'rest_webservices restlets' if you want to use Restlets as well
+- **Account Subdomain**: Get account subdomain from NetSuite url after login into your NetSuite account. Usually https://[account-subdomain].app.netsuite.com
 
 ### Configuration Tips
 
 - Ensure your NetSuite account has SuiteTalk REST Web Services enabled.
-- The REST API URL should match your account's region and sandbox/production status.
 - Permissions for the integration user must include access to the required records and REST web services.
 
 ## Known Issues and workarounds
