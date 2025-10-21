@@ -87,6 +87,8 @@ You must [create an integration record](https://docs.oracle.com/en/cloud/saas/ne
 
 For Redirect URI use the OAuth Redirect Url from n8n Credentials. See next section.
 
+You can also select RESTLETS in SCOPE if you plan to call Restlets.
+
 <div align="center">
 <img alt="Get OAuth Redirect Url from N8n Credentials" src="https://raw.githubusercontent.com/entech-code/n8n-nodes-netsuite-rest-assets/main/setup-n8n-oauth-redirect-url.png" style="max-width: 100%; height: auto; width: 600px;"> 
 </div>
@@ -99,7 +101,7 @@ When creating your NetSuite REST API credential in n8n for OAuth 2.0, fill in th
 
 - **Client ID**: Your NetSuite application (integration record) Client ID
 - **Client Secret**: Your NetSuite application (integration record) Client Secret
-- **Scope**: Use `rest_webservices` or 'rest_webservices restlets' if you want to use Restlets as well
+- **Scope**: Use `rest_webservices` or `rest_webservices restlets` if you want to use Restlets as well
 - **Account Subdomain**: Get account subdomain from NetSuite url after login into your NetSuite account. Usually https://[account-subdomain].app.netsuite.com
 
 ### Configuration Tips
