@@ -53,10 +53,8 @@ export class NetSuiteRestOAuth2Api implements ICredentialType {
 		{
 			displayName: 'Scope',
 			name: 'scope',
-			required: true,
-			type: 'string',
-			default: 'rest_webservices',
-			description: "Change it to 'rest_webservices restlets' if you want to use Restlets as well",
+			type: 'hidden',
+			default: 'rest_webservices restlets',
 		},
 	];
 }
