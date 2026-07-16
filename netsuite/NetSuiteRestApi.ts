@@ -60,7 +60,7 @@ export class NetSuiteRestApi {
 			!openapi.components.schemas ||
 			!openapi.components.schemas[recordType]
 		) {
-			throw new Error(`Schema for record type ${recordType} not found in OpenAPI response`);
+			throw new ApplicationError(`Schema for record type ${recordType} not found in OpenAPI response`);
 		}
 
 		const componentSchema = openapi.components.schemas[recordType] as OpenAPIV3.SchemaObject;
@@ -110,10 +110,6 @@ export class NetSuiteRestApi {
 			returnFullResponse: false,
 			json: true,
 		};
-
-		if (!this.context) {
-			throw new Error('Context is null. Cannot make the request.');
-		}
 
 		const response = await this.context.helpers.httpRequestWithAuthentication.call(
 			this.context,

@@ -377,8 +377,6 @@ export class NodePropertyFactory {
 	createN8nPropertyForApiRequestParameter(
 		param: OpenAPIV3.ReferenceObject | OpenAPIV3.ParameterObject,
 	): any {
-		var prop: any = null;
-
 		if ('$ref' in param) throw new ApplicationError('Referenced parameters not supported');
 
 		if (!param.schema || !('type' in param.schema)) {
@@ -397,7 +395,7 @@ export class NodePropertyFactory {
 
 		const n8nType = this.getN8nTypeFromSchemObject(paramSchema);
 
-		var prop: any = {
+		const prop: any = {
 			displayName: this.getLabelFromName(param.name),
 			name: param.name,
 			type: n8nType,

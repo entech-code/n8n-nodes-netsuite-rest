@@ -1,8 +1,9 @@
-import { ICredentialType, INodeProperties } from 'n8n-workflow';
+import { ICredentialType, INodeProperties, Icon } from 'n8n-workflow';
 
 export class NetSuiteRestOAuth2Api implements ICredentialType {
 	name = 'netSuiteRestOAuth2Api';
 	displayName = 'NetSuite REST OAuth2 API';
+	icon: Icon = { light: 'file:netsuite-rest.svg', dark: 'file:netsuite-rest.svg' };
 	extends = ['oAuth2Api'];
 	documentationUrl =
 		'https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_157780312610.html';
