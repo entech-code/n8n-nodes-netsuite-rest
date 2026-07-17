@@ -1,6 +1,6 @@
 import NetSuiteRestApiSchema from './NetSuiteRestApiSchema';
 import { OPEN_API_SCHEMA } from './OpenApiSchema';
-import type { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../utils/OpenApiV3Types';
 
 export class NetSuiteRestApiSchemaService {
 	load(): NetSuiteRestApiSchema {

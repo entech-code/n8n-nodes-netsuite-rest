@@ -1,6 +1,6 @@
 import { NetSuiteRestApiSchemaBuilder } from '../../../builders/NetSuiteRestApiSchemaBuilder';
 import { NodePropertyFactory } from '../../../../nodes/NetSuiteRest/NodePropertyFactory';
-import type { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../../../../utils/OpenApiV3Types';
 
 describe('NodePropertyFactory creating properties when Component Reference in RequestBody', () => {
 	const builder = new NetSuiteRestApiSchemaBuilder();

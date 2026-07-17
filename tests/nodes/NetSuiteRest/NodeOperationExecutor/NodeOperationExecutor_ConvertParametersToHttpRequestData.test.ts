@@ -1,6 +1,6 @@
 import { NetSuiteRestApiSchemaBuilder } from '../../../builders/NetSuiteRestApiSchemaBuilder';
 import { NodeOperationExecutor } from '../../../../nodes/NetSuiteRest/NodeOperationExecutor';
-import type { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../../../../utils/OpenApiV3Types';
 import { ApplicationError } from 'n8n-workflow';
 
 describe('NodeOperationExecutor  converts n8n node properties to correct http request data', () => {

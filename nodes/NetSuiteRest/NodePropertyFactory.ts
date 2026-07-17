@@ -1,6 +1,6 @@
 import { ApplicationError } from 'n8n-workflow';
 
-import type { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../../utils/OpenApiV3Types';
 
 import { NetSuiteRestApiSchema } from '../../netsuite/NetSuiteRestApiSchema';
 import { N8nUtils, N8nPropertyType, N8nSimplePropertyTypes } from '../../utils/N8nUtils';

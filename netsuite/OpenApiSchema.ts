@@ -1,4 +1,4 @@
-import type { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../utils/OpenApiV3Types';
 
 export const OPEN_API_SCHEMA: OpenAPIV3.Document = {
 	openapi: '3.0.1',
