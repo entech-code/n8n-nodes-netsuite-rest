@@ -5,6 +5,7 @@ import {
 	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
+	NodeConnectionTypes,
 	NodeOperationError,
 	INodeListSearchResult,
 } from 'n8n-workflow';
@@ -19,14 +20,15 @@ export class NetSuiteRest implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'NetSuite REST',
 		name: 'netSuiteRest',
-		icon: { light: 'file:netsuite-rest.svg', dark: 'file:netsuite-rest.svg' },
+		icon: 'file:netsuite-rest.svg',
 		subtitle: '',
 		group: ['transform'],
 		version: 1,
 		description: 'Call NetSuite SuiteTalk REST operations.',
 		defaults: { name: 'NetSuite REST' },
-		inputs: ['main'],
-		outputs: ['main'],
+		usableAsTool: true,
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [{ name: 'netSuiteRestOAuth2Api', required: true }],
 		properties: [
 			{
@@ -121,10 +123,17 @@ export class NetSuiteRest implements INodeType {
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-		const schemaService = new NetSuiteRestApiSchemaService();
-		const schema: NetSuiteRestApiSchema = schemaService.load();
+		try {
+			const schemaService = new NetSuiteRestApiSchemaService();
+			const schema: NetSuiteRestApiSchema = schemaService.load();
 
-		const executor = new NodeOperationExecutor(this, schema);
-		return await executor.execute();
+			const executor = new NodeOperationExecutor(this, schema);
+			return await executor.execute();
+		} catch (error) {
+			if (this.continueOnFail()) {
+				return [[{ json: { error: (error as Error).message }, pairedItem: 0 }]];
+			}
+			throw new NodeOperationError(this.getNode(), error as Error);
+		}
 	}
 }

@@ -4,7 +4,7 @@ import {
 	ApplicationError,
 	ILoadOptionsFunctions,
 } from 'n8n-workflow';
-import { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../utils/OpenApiV3Types';
 import { NetSuiteUtils } from '../utils/NetSuiteUtils';
 
 export interface CustomFieldSchema {

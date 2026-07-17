@@ -1,6 +1,6 @@
 import { NetSuiteRestApiSchemaBuilder } from '../../../builders/NetSuiteRestApiSchemaBuilder';
 import { NodePropertyFactory } from '../../../../nodes/NetSuiteRest/NodePropertyFactory';
-import type { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../../../../utils/OpenApiV3Types';
 
 describe('NodePropertyFactory creates customFields collection', () => {
 	const builder = new NetSuiteRestApiSchemaBuilder();

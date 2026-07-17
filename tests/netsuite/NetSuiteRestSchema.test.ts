@@ -1,5 +1,5 @@
 import { NetSuiteRestApiSchemaBuilder } from '../builders/NetSuiteRestApiSchemaBuilder';
-import type { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../../utils/OpenApiV3Types';
 
 describe('NetSuiteRestApiSchema', () => {
 	const builder = new NetSuiteRestApiSchemaBuilder();

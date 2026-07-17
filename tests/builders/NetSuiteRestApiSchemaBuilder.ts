@@ -1,4 +1,4 @@
-import type { OpenAPIV3 } from 'openapi-types';
+import type { OpenAPIV3 } from '../../utils/OpenApiV3Types';
 import NetSuiteRestApiSchema from '../../netsuite/NetSuiteRestApiSchema';
 
 export class NetSuiteRestApiSchemaBuilder {
