@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-netsuite-rest",
-	"version": "0.1.14",
+	"version": "0.1.15",
 	"description": "n8n community node for NetSuite: SuiteTalk REST API, 150+ standard record types, custom records, custom fields and SuiteQL queries. OAuth 2.0.",
 	"keywords": [
 		"n8n-community-node-package",
