@@ -1,12 +1,22 @@
 {
 	"name": "n8n-nodes-netsuite-rest",
-	"version": "0.1.14",
-	"description": "NetSuite REST API integration for n8n",
+	"version": "0.1.15",
+	"description": "n8n community node for NetSuite: SuiteTalk REST API, 150+ standard record types, custom records, custom fields and SuiteQL queries. OAuth 2.0.",
 	"keywords": [
-		"n8n-community-node-package"
+		"n8n-community-node-package",
+		"n8n",
+		"n8n-nodes",
+		"netsuite",
+		"oracle-netsuite",
+		"netsuite-rest",
+		"suitetalk",
+		"suiteql",
+		"erp",
+		"integration",
+		"automation"
 	],
 	"license": "MIT",
-	"homepage": "https://github.com/entech-code/n8n-nodes-netsuite-rest#readme",
+	"homepage": "https://integrationstars.com/n8n/blog/n8n-netsuite-integration/",
 	"author": {
 		"name": "Eric Popivker",
 		"email": "en@entechsolutions.com"

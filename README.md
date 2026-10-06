@@ -2,6 +2,8 @@
 
 # n8n NetSuite REST Custom Node
 
+Built and maintained by [Entech Solutions](https://integrationstars.com/n8n/), n8n automation engineering. Full setup guide: [n8n + NetSuite integration](https://integrationstars.com/n8n/blog/n8n-netsuite-integration/).
+
 This project provides a custom n8n node for integrating with NetSuite's SuiteTalk REST API. It allows you to automate NetSuite operations (such as creating, retrieving, and updating records) directly from n8n workflows.
 
 ## Features
@@ -140,6 +142,8 @@ When creating your NetSuite REST API credential in n8n for OAuth 2.0, fill in th
 ## Development
 
 If you would like to have access to code or assist with development, please contact by email: support@entechsolutions.com .
+
+Need help with a NetSuite + n8n project? [Talk to Entech](https://integrationstars.com/n8n/).
 
 ## License
 
